@@ -18,12 +18,13 @@ useEffect(()=> {
         <>
             <h2>Articles</h2>
             <div className = 'scrolling_articles_list'>
-                <ul>
+                <ul className = 'articles_list'>
                 {articles.map((article) => {
                     return (
                         <>
                             <li key = {article.article_id}>
                         <ArticlesListCard
+                        id = {article.article_id}
                         title = {article.title}
                         topic = {article.topic}
                         author = {article.author}
