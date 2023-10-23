@@ -9,6 +9,7 @@ function ArticleById() {
     const { id } = useParams();
     const [userVote, setUserVote] = useState(0)
     const [error, setError] = useState(null)
+    const [showComments, setShowComments] = useState(false);
 
     const updateVotes = (value) => {
       setUserVote((currentVotes) => {
@@ -63,10 +64,16 @@ useEffect(()=> {
 
    <p className = 'comment_count'><b>Comment count:</b> {article.comment_count}</p>
 
-<button id="show_comments">Show comments</button>
+   <button id="show_comments" onClick={() => setShowComments(!showComments)}>
+  {showComments ? 'Hide Comments' : 'Show Comments'}
+</button>
 
 <div id="comments">
-  <CommentsList id={id} />
+{showComments && (
+  <div id="comments">
+    <CommentsList id={id} />
+  </div>
+)}
 </div>
     
     </>
