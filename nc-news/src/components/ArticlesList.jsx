@@ -18,21 +18,23 @@ useEffect(()=> {
         <>
             <h2>Articles</h2>
             <div className = 'scrolling_articles_list'>
+                <ul>
                 {articles.map((article) => {
                     return (
                         <>
-                        <ul key = {article.article_id}>
+                            <li key = {article.article_id}>
                         <ArticlesListCard
                         title = {article.title}
                         topic = {article.topic}
                         author = {article.author}
+                        date = {article.created_at}
                         image = {article.article_img_url}
                         />
-
-                        </ul>
+                        </li>
                         </>
                     )
                 })}
+                </ul>
             </div>
         </>
     )
