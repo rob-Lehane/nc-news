@@ -21,3 +21,10 @@ export const getComments = (id) => {
         return res.data.comments;
     })
 }
+
+export const voteOnArticle = (id, vote) => {
+    return newsApi.patch(`/articles/${id}`, vote).then((res) => {
+        return res.data.votes;
+    }
+    )
+}
