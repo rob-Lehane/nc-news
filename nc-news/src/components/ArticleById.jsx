@@ -12,7 +12,7 @@ useEffect(()=> {
     .then((fetchedArticle) => {
         setArticle(fetchedArticle)
     })
-}, [])
+}, [id])
 
   return (
     <>
