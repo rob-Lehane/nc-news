@@ -2,4 +2,9 @@
     height:50rem;
     overflow:scroll;
     overflow-x:hidden;
+    list-style-type: none;
+}
+
+.articles_list{
+    list-style-type: none;
 }

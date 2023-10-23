@@ -6,6 +6,7 @@
     grid-template-rows: repeat (1fr);
     padding: 1em;
     margin: 1em;
+    list-style-type: none;
 }
 
 .article_img {

@@ -1,11 +1,13 @@
 import './css/ArticlesListCard.css'
+import { Link } from 'react-router-dom'
+import ArticleById from './ArticleById.jsx'
 
 
-function ArticlesListCard({title, topic, author, date, image}) {
+function ArticlesListCard({id, title, topic, author, date, image}) {
     
     return (
         <section className = 'ArticlesListCard'>
-            <h2 className = 'title'>{title}</h2>
+            <Link to={`/articles/${id}`} className='title'>{title}</Link>
             <p className = 'topic'>{topic}</p>
             <p className = 'author'>Author: {author}</p>
             <p className = 'date'>Created: {date}</p>
