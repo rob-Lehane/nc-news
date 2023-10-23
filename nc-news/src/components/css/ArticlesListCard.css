@@ -43,3 +43,9 @@
     text-align: center;
     margin: 2px;
  }
+
+ .author {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    justify-self: center;
+ }

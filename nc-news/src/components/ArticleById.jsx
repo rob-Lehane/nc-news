@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { getArticleById } from '../utils/api';
+import { getArticleById, voteOnArticle } from '../utils/api';
 import { useState, useEffect } from 'react'
 import './css/ArticleById.css'
 import CommentsList  from './CommentsList'
@@ -7,6 +7,15 @@ import CommentsList  from './CommentsList'
 function ArticleById() {
     const [article, setArticle] = useState([])
     const { id } = useParams();
+    const [userVote, setUserVote] = useState(0)
+    const [error, setError] = useState(null)
+
+    const updateVotes = (value) => {
+      setUserVote((currentVotes) => {
+        return currentVotes + value;
+      });
+    }
+
 
 useEffect(()=> {
     getArticleById(id)
@@ -14,6 +23,13 @@ useEffect(()=> {
         setArticle(fetchedArticle)
     })
 }, [id])
+
+useEffect(()=> {
+  voteOnArticle(id, {"inc_votes": userVote})
+.catch((err)=> {
+  article.votes - userVote;
+  setError('Vote failed. Please refresh and try again.')
+})}, [userVote])
 
   return (
     <>
@@ -24,6 +40,27 @@ useEffect(()=> {
    <p className = 'date'><b>Created at:</b> {article.created_at}</p>
    <p className = 'article_body'>{article.body}</p>
    <p className = 'vote_count'><b>Votes:</b> {article.votes}</p>
+   <button 
+   id="upvote" 
+   disabled={userVote === 1} 
+   onClick={() => {
+    updateVotes(1)
+    article.votes++
+   }}>
+    👍
+    </button> 
+    <button 
+    id="downvote"
+    disabled={userVote === -1} 
+    onClick={() => {
+      updateVotes(-1)
+      article.votes--
+    }}>
+    👎
+    </button>
+
+    {error && <p className="error-message">{error}</p>}
+
    <p className = 'comment_count'><b>Comment count:</b> {article.comment_count}</p>
 
 <button id="show_comments">Show comments</button>
