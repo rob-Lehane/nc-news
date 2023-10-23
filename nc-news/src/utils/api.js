@@ -25,6 +25,12 @@ export const getComments = (id) => {
 export const voteOnArticle = (id, vote) => {
     return newsApi.patch(`/articles/${id}`, vote).then((res) => {
         return res.data.votes;
-    }
-    )
+    })
 }
+
+export const postNewComment = (id, usernameAndBody) => {
+    console.log(usernameAndBody, "in API")
+    return newsApi.post(`/articles/${id}/comments`, usernameAndBody).then((res) => {
+        return res.data.comment.body;
+    })
+} 

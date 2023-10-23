@@ -3,6 +3,7 @@ import { getArticleById, voteOnArticle } from '../utils/api';
 import { useState, useEffect } from 'react'
 import './css/ArticleById.css'
 import CommentsList  from './CommentsList'
+import AddComment from './AddComment'
 
 function ArticleById() {
     const [article, setArticle] = useState([])
@@ -60,22 +61,22 @@ useEffect(()=> {
     👎
     </button>
 
-    {error && <p className="error-message">{error}</p>}
+    <p className = 'comment_count'><b>Comment count:</b> {article.comment_count}</p>
 
-   <p className = 'comment_count'><b>Comment count:</b> {article.comment_count}</p>
+    {error && <p className="error-message">{error}</p>}
 
    <button id="show_comments" onClick={() => setShowComments(!showComments)}>
   {showComments ? 'Hide Comments' : 'Show Comments'}
 </button>
 
-<div id="comments">
 {showComments && (
-  <div id="comments">
+  <div id="comments_list">
     <CommentsList id={id} />
   </div>
 )}
-</div>
     
+<AddComment id={id}/>
+
     </>
   )
   
