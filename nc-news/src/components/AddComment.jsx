@@ -5,12 +5,20 @@ import {useState} from 'react'
 function AddComment(id){
     const [confirmation, setConfirmation] = useState(null)
     const [comment, setComment] = useState('')
+    const [error, setError] = useState(null)
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (comment.trim() === '') {
+            setError('Comment cannot be blank!'); 
+            return; 
+          }
+
         postNewComment(id.id, {"username": "jessjelly", "body": comment})
         .then((res)=> {
             if(res){
+                setError(null)
                 setConfirmation(<p>Comment posted succesfully!</p>)
                 setComment('')
             }
@@ -19,6 +27,7 @@ function AddComment(id){
 
     const handleReset = () => {
         setConfirmation(null)
+        setError(null)
         setComment(null)
     }
 
@@ -41,7 +50,8 @@ function AddComment(id){
             <button 
             type="reset" 
             onClick={handleReset}>Reset</button>
-            {confirmation}
+            {error && <p className="error-message">{error}</p>}
+            {confirmation && <p className="confirmation-message">{confirmation}</p>}
         </form>
         </>
     )
