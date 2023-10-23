@@ -1,0 +1,33 @@
+.comment_card {
+    border: 5px solid rgb(0, 92, 0);
+    width: auto;
+    display: grid;
+    grid-template-columns: 3fr, 1fr;
+    grid-template-rows: repeat (1fr);
+    padding: 1em;
+    margin: 1em;
+    list-style-type: none;
+}
+
+.author {
+    grid-column-start: 0;
+    grid-column-end: 1;
+    grid-row-start: 0;
+    grid-row-end: 1;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+
+.created {
+    border-radius: 4px;
+    height: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: auto;
+    text-align: center;
+    margin: 2px;
+ }

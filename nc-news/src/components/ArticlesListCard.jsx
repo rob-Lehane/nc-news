@@ -1,6 +1,5 @@
 import './css/ArticlesListCard.css'
 import { Link } from 'react-router-dom'
-import ArticleById from './ArticleById.jsx'
 
 
 function ArticlesListCard({id, title, topic, author, date, image}) {
