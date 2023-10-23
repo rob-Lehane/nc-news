@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { getArticleById } from '../utils/api';
 import { useState, useEffect } from 'react'
 import './css/ArticleById.css'
+import CommentsList  from './CommentsList'
 
 function ArticleById() {
     const [article, setArticle] = useState([])
@@ -24,8 +25,17 @@ useEffect(()=> {
    <p className = 'article_body'>{article.body}</p>
    <p className = 'vote_count'><b>Votes:</b> {article.votes}</p>
    <p className = 'comment_count'><b>Comment count:</b> {article.comment_count}</p>
+
+<button id="show_comments">Show comments</button>
+
+<div id="comments">
+  <CommentsList id={id} />
+</div>
+    
     </>
-  );
+  )
+  
+;
 }
 
 export default ArticleById;

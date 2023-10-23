@@ -1,0 +1,11 @@
+.scrolling_comments_list{
+    height:50rem;
+    overflow:scroll;
+    overflow-x:hidden;
+    list-style-type: none;
+    border: 5px rgba(0, 128, 0, 0.805);
+}
+
+.comments_list{
+    list-style-type: none;
+}
