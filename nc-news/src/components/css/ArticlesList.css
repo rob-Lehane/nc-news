@@ -1,0 +1,5 @@
+.scrolling_articles_list{
+    height:50rem;
+    overflow:scroll;
+    overflow-x:hidden;
+}

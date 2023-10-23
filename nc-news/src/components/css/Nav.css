@@ -1,0 +1,9 @@
+.navigation {
+    font-weight: bold;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+    border: 3px rgb(9, 116, 3) solid;
+    padding: 0.5rem;
+    color: rgb(9, 116, 3)
+}
