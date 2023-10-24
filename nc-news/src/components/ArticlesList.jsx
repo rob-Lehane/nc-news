@@ -1,19 +1,29 @@
 import { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { getArticles, getTopics } from '../utils/api'
 import ArticlesListCard from './ArticlesListCard'
 import './css/ArticlesList.css'
 
-function ArticlesList (topic) {
+function ArticlesList (topic, sort_by) {
     const [articles, setArticles] = useState([])
     const [topics, setTopics] = useState([])
+    const [order, setOrder] = useState('asc')
+    const location = useLocation();
+    const navigate = useNavigate();
+
+
+    function toggleOrder() {
+        const newOrder = order === 'asc' ? 'desc' : 'asc';
+        setOrder(newOrder);
+        navigate(`${location.pathname}${location.search}&order=${newOrder}`)
+    }
 
 useEffect(()=> {
-    getArticles(topic)
+    getArticles({topic}, {sort_by})
     .then((articles) => {
         setArticles(articles)
     })
-}, [topic])
+}, [topic, sort_by])
 
 useEffect(()=> {
     getTopics()
@@ -33,6 +43,13 @@ useEffect(()=> {
                     )
                 })}
             </ul>
+            <ul className = 'sort_by_filter'>
+                Sort by:
+                <li><Link to = "/articles?sort_by=created_at">Date</Link></li>
+                <li><Link to = "/articles?sort_by=comment_count">Comment count</Link></li>
+                <li><Link to = "/articles?sort_by=votes">Votes</Link></li>
+                <button onClick = {toggleOrder}>Toggle order</button>
+            </ul>
             <div className = 'scrolling_articles_list'>
                 <ul className = 'articles_list'>
                 {articles.map((article) => {
@@ -46,6 +63,8 @@ useEffect(()=> {
                         author = {article.author}
                         date = {article.created_at}
                         image = {article.article_img_url}
+                        comment_count = {article.comment_count}
+                        votes = {article.votes}
                         />
                         </li>
                         </>
