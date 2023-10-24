@@ -42,7 +42,7 @@ function AddComment(id){
             placeholder="Type your comment here" 
             onChange = {(e) => setComment(e.target.value)} 
             disabled = {confirmation}
-            required/>
+            required/><br/>
             <button 
             type="submit" 
             onClick={handleSubmit} 
