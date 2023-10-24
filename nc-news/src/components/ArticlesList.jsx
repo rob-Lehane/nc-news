@@ -1,22 +1,38 @@
 import { useState, useEffect } from 'react'
-import { getArticles } from '../utils/api'
+import { Link, useParams } from 'react-router-dom'
+import { getArticles, getTopics } from '../utils/api'
 import ArticlesListCard from './ArticlesListCard'
 import './css/ArticlesList.css'
 
-function ArticlesList () {
+function ArticlesList (topic) {
     const [articles, setArticles] = useState([])
+    const [topics, setTopics] = useState([])
 
 useEffect(()=> {
-    getArticles()
+    getArticles(topic)
     .then((articles) => {
         setArticles(articles)
     })
-}, [])
+}, [topic])
 
+useEffect(()=> {
+    getTopics()
+    .then((topics)=> {
+        setTopics(topics)
+    })
+})
 
     return (
         <>
             <h2>Articles</h2>
+            <ul className = 'topic_filter'>
+                Filter by topic:
+                {topics.map((topic) => {
+                    return (
+                        <li><Link to = {`/articles?topic=${topic.slug}`}> {topic.slug} </Link></li>
+                    )
+                })}
+            </ul>
             <div className = 'scrolling_articles_list'>
                 <ul className = 'articles_list'>
                 {articles.map((article) => {

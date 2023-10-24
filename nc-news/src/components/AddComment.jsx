@@ -3,9 +3,9 @@ import { postNewComment } from '../utils/api.js'
 import {useState} from 'react'
 
 function AddComment(id){
-    const [confirmation, setConfirmation] = useState(null)
+    const [confirmation, setConfirmation] = useState('')
     const [comment, setComment] = useState('')
-    const [error, setError] = useState(null)
+    const [error, setError] = useState('')
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -19,7 +19,7 @@ function AddComment(id){
         .then((res)=> {
             if(res){
                 setError(null)
-                setConfirmation(<p>Comment posted succesfully!</p>)
+                setConfirmation("Comment posted succesfully!")
                 setComment('')
             }
         })
