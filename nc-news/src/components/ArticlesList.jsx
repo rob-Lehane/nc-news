@@ -1,19 +1,37 @@
 import { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { getArticles, getTopics } from '../utils/api'
 import ArticlesListCard from './ArticlesListCard'
 import './css/ArticlesList.css'
 
-function ArticlesList (topic) {
+function ArticlesList (topic, sort_by) {
     const [articles, setArticles] = useState([])
     const [topics, setTopics] = useState([])
+    const [order, setOrder] = useState('asc')
+    const [view, setView] = useState('')
+    const location = useLocation();
+    const navigate = useNavigate();
+    let currentTopic = ""
+
+
+    function toggleOrder() {
+        const newOrder = order === 'asc' ? 'desc' : 'asc';
+        setOrder(newOrder);
+        if((location.pathname+location.search).includes('&order')){
+            const splitUrl = (location.pathname+location.search).split('&order')
+            const newUrl = splitUrl[0]
+            navigate(`${newUrl}&order=${newOrder}`)
+        }
+        else
+        navigate(`${location.pathname}${location.search}&order=${newOrder}`)
+    }
 
 useEffect(()=> {
-    getArticles(topic)
+    getArticles({topic}, {sort_by})
     .then((articles) => {
         setArticles(articles)
     })
-}, [topic])
+}, [topic, sort_by])
 
 useEffect(()=> {
     getTopics()
@@ -21,6 +39,15 @@ useEffect(()=> {
         setTopics(topics)
     })
 })
+
+function getTopicValue(){
+    if (location.search.includes('?topic=')){
+        const searchSplit = location.search.split('?topic=')
+        const valueSplit = searchSplit[1]
+        currentTopic = valueSplit.split('&')[0]
+    }
+    return true;
+}
 
     return (
         <>
@@ -32,6 +59,24 @@ useEffect(()=> {
                         <li><Link to = {`/articles?topic=${topic.slug}`}> {topic.slug} </Link></li>
                     )
                 })}
+            </ul>
+            <ul className = 'sort_by_filter'>
+                Sort by:
+                {!getTopicValue() ? (
+                    
+                    <>
+                <li><Link to = "/articles?sort_by=created_at">Date</Link></li>
+                <li><Link to = "/articles?sort_by=comment_count">Comment count</Link></li>
+                <li><Link to = "/articles?sort_by=votes">Votes</Link></li>
+                </>
+                ) : (
+                    <>
+                    <li><Link to = {`/articles?topic=${currentTopic}&sort_by=created_at`}>Date</Link></li>
+                    <li><Link to = {`/articles?topic=${currentTopic}&sort_by=comment_count`}>Comment count</Link></li>
+                    <li><Link to = {`/articles?topic=${currentTopic}&sort_by=votes`}>Votes</Link></li>
+                    </>
+                )}
+                <button onClick = {toggleOrder}>order: {order === 'asc' ? 'desc' : 'asc'}ending</button>
             </ul>
             <div className = 'scrolling_articles_list'>
                 <ul className = 'articles_list'>
@@ -46,6 +91,8 @@ useEffect(()=> {
                         author = {article.author}
                         date = {article.created_at}
                         image = {article.article_img_url}
+                        comment_count = {article.comment_count}
+                        votes = {article.votes}
                         />
                         </li>
                         </>
