@@ -13,9 +13,9 @@ function ArticlesList (topic, sort_by) {
     let currentTopic = ""
     let buttonEnabled = true
 
-    if (!(location.search.includes('&order') || location.search.includes('topic'))) {
+    if (!(location.search.includes('sort_by') || location.search.includes('order'))) {
         buttonEnabled = false;
-    }
+      }
 
 
     function toggleOrder() {
@@ -49,8 +49,9 @@ function getTopicValue(){
         const searchSplit = location.search.split('?topic=')
         const valueSplit = searchSplit[1]
         currentTopic = valueSplit.split('&')[0]
+        return true;
     }
-    return true;
+    else return false
 }
 
     return (
@@ -82,7 +83,7 @@ function getTopicValue(){
                 )}
                 <button 
                 onClick = {toggleOrder}
-                disabled = {buttonEnabled === false}>order: {order === 'asc' ? 'desc' : 'asc'}ending</button>
+                hidden = {buttonEnabled === false}>order: {order === 'asc' ? 'desc' : 'asc'}ending</button>
             </ul>
             <div className = 'scrolling_articles_list'>
                 <ul className = 'articles_list'>
