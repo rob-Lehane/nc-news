@@ -8,13 +8,21 @@ function ArticlesList (topic, sort_by) {
     const [articles, setArticles] = useState([])
     const [topics, setTopics] = useState([])
     const [order, setOrder] = useState('asc')
+    const [view, setView] = useState('')
     const location = useLocation();
     const navigate = useNavigate();
+    let currentTopic = ""
 
 
     function toggleOrder() {
         const newOrder = order === 'asc' ? 'desc' : 'asc';
         setOrder(newOrder);
+        if((location.pathname+location.search).includes('&order')){
+            const splitUrl = (location.pathname+location.search).split('&order')
+            const newUrl = splitUrl[0]
+            navigate(`${newUrl}&order=${newOrder}`)
+        }
+        else
         navigate(`${location.pathname}${location.search}&order=${newOrder}`)
     }
 
@@ -32,6 +40,15 @@ useEffect(()=> {
     })
 })
 
+function getTopicValue(){
+    if (location.search.includes('?topic=')){
+        const searchSplit = location.search.split('?topic=')
+        const valueSplit = searchSplit[1]
+        currentTopic = valueSplit.split('&')[0]
+    }
+    return true;
+}
+
     return (
         <>
             <h2>Articles</h2>
@@ -45,10 +62,21 @@ useEffect(()=> {
             </ul>
             <ul className = 'sort_by_filter'>
                 Sort by:
+                {!getTopicValue() ? (
+                    
+                    <>
                 <li><Link to = "/articles?sort_by=created_at">Date</Link></li>
                 <li><Link to = "/articles?sort_by=comment_count">Comment count</Link></li>
                 <li><Link to = "/articles?sort_by=votes">Votes</Link></li>
-                <button onClick = {toggleOrder}>Toggle order</button>
+                </>
+                ) : (
+                    <>
+                    <li><Link to = {`/articles?topic=${currentTopic}&sort_by=created_at`}>Date</Link></li>
+                    <li><Link to = {`/articles?topic=${currentTopic}&sort_by=comment_count`}>Comment count</Link></li>
+                    <li><Link to = {`/articles?topic=${currentTopic}&sort_by=votes`}>Votes</Link></li>
+                    </>
+                )}
+                <button onClick = {toggleOrder}>order: {order === 'asc' ? 'desc' : 'asc'}ending</button>
             </ul>
             <div className = 'scrolling_articles_list'>
                 <ul className = 'articles_list'>
