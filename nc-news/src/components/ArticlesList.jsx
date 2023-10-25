@@ -8,10 +8,14 @@ function ArticlesList (topic, sort_by) {
     const [articles, setArticles] = useState([])
     const [topics, setTopics] = useState([])
     const [order, setOrder] = useState('asc')
-    const [view, setView] = useState('')
     const location = useLocation();
     const navigate = useNavigate();
     let currentTopic = ""
+    let buttonEnabled = true
+
+    if (!(location.search.includes('&order') || location.search.includes('topic'))) {
+        buttonEnabled = false;
+    }
 
 
     function toggleOrder() {
@@ -76,7 +80,9 @@ function getTopicValue(){
                     <li><Link to = {`/articles?topic=${currentTopic}&sort_by=votes`}>Votes</Link></li>
                     </>
                 )}
-                <button onClick = {toggleOrder}>order: {order === 'asc' ? 'desc' : 'asc'}ending</button>
+                <button 
+                onClick = {toggleOrder}
+                disabled = {buttonEnabled === false}>order: {order === 'asc' ? 'desc' : 'asc'}ending</button>
             </ul>
             <div className = 'scrolling_articles_list'>
                 <ul className = 'articles_list'>
