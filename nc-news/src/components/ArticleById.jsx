@@ -4,12 +4,14 @@ import { useState, useEffect } from 'react'
 import './css/ArticleById.css'
 import CommentsList  from './CommentsList'
 import AddComment from './AddComment'
+import Errors from './Errors.jsx'
 
 function ArticleById() {
     const [article, setArticle] = useState([])
     const { id } = useParams();
     const [userVote, setUserVote] = useState(0)
     const [error, setError] = useState(null)
+    const [voteError, setVoteError] = useState(null)
     const [showComments, setShowComments] = useState(false);
 
     const updateVotes = (value) => {
@@ -23,15 +25,35 @@ useEffect(()=> {
     getArticleById(id)
     .then((fetchedArticle) => {
         setArticle(fetchedArticle)
-    })
+    }).catch((err)=> {
+      setError({ err })
+    }
+    ) 
 }, [id])
 
 useEffect(()=> {
   voteOnArticle(id, {"inc_votes": userVote})
 .catch((err)=> {
   article.votes - userVote;
-  setError('Vote failed. Please refresh and try again.')
+  setVoteError('Vote failed. Please refresh and try again.')
 })}, [userVote])
+
+const newDateInput = new Date(article.created_at)
+const dateOptions = {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                        hour12: true,
+                        timeZoneName: "short",
+                    }
+
+
+if(error){
+  return <Errors message={error}/>
+}
 
   return (
     <>
@@ -39,7 +61,7 @@ useEffect(()=> {
    <img className = 'article_img' src={`${article.article_img_url}`}/>
    <p className = 'author'><b>Author:</b> {article.author}</p>
    <p>Topic: {article.topic}</p>
-   <p className = 'date'><b>Created at:</b> {article.created_at}</p>
+   <p className = 'date'><b>Created at:</b> {newDateInput.toLocaleString(undefined, dateOptions)}</p>
    <p className = 'article_body'>{article.body}</p>
    <p className = 'vote_count'><b>Votes:</b> {article.votes}</p>
    <button 
@@ -63,7 +85,7 @@ useEffect(()=> {
 
     <p className = 'comment_count'><b>Comment count:</b> {article.comment_count}</p>
 
-    {error && <p className="error-message">{error}</p>}
+    <p className="error-message" hidden={!voteError}>{voteError}</p>
 
    <button id="show_comments" onClick={() => setShowComments(!showComments)}>
   {showComments ? 'Hide Comments' : 'Show Comments'}

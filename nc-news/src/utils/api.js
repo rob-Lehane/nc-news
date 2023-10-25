@@ -48,7 +48,6 @@ export const getTopics = () => {
 
 export const deleteComment = (comment_id) => {
     return newsApi.delete(`/comments/${comment_id}`).then((res)=> {
-        console.log(res.status, "comment deleted successfully")
         return res.status;
     })
 }

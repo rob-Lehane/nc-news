@@ -26,6 +26,8 @@ function CommentsCard({ id, author, created, body, votes }) {
   }, [author]);
 
 
+  
+
   return (
     <>
     <div hidden={deletedSuccessfully}>
