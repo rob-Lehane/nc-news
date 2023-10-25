@@ -31,15 +31,14 @@
 
 
 .topic {
-    border: 3px solid black;
+    border: 3px solid #166016;
+    color: #166016;
     font-weight: bold;
     border-radius: 4px;
     height: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
-    width: auto;
+    width: 5rem;
     text-align: center;
     margin: 2px;
  }

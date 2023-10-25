@@ -69,7 +69,7 @@ if(error){
                 Filter by topic:
                 {topics.map((topic) => {
                     return (
-                        <li><Link to = {`/articles?topic=${topic.slug}`}> {topic.slug} </Link></li>
+                        <li><Link to = {`/articles?topic=${topic.slug}`} className="link"> {topic.slug} </Link></li>
                     )
                 })}
             </ul>
@@ -78,15 +78,15 @@ if(error){
                 {!getTopicValue() ? (
                     
                     <>
-                <li><Link to = "/articles?sort_by=created_at">Date</Link></li>
-                <li><Link to = "/articles?sort_by=comment_count">Comment count</Link></li>
-                <li><Link to = "/articles?sort_by=votes">Votes</Link></li>
+                <li><Link to = "/articles?sort_by=created_at" className="link">Date</Link></li>
+                <li><Link to = "/articles?sort_by=comment_count" className="link">Comment count</Link></li>
+                <li><Link to = "/articles?sort_by=votes" className="link">Votes</Link></li>
                 </>
                 ) : (
                     <>
-                    <li><Link to = {`/articles?topic=${currentTopic}&sort_by=created_at`}>Date</Link></li>
-                    <li><Link to = {`/articles?topic=${currentTopic}&sort_by=comment_count`}>Comment count</Link></li>
-                    <li><Link to = {`/articles?topic=${currentTopic}&sort_by=votes`}>Votes</Link></li>
+                    <li><Link to = {`/articles?topic=${currentTopic}&sort_by=created_at`} className="link">Date</Link></li>
+                    <li><Link to = {`/articles?topic=${currentTopic}&sort_by=comment_count`} className="link">Comment count</Link></li>
+                    <li><Link to = {`/articles?topic=${currentTopic}&sort_by=votes`} className="link">Votes</Link></li>
                     </>
                 )}
                 <button 

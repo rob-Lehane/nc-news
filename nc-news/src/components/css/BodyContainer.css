@@ -1,0 +1,33 @@
+body {
+    background-color: #f5f5dc; 
+    font-family: "Helvetica Neue", sans-serif; 
+    margin: 0;
+    padding: 0;
+  }
+  
+  * {
+    border-radius: 10px;
+  }
+  
+  h1, h2, h3 {
+    color: #166016; 
+  }
+  
+
+  p {
+    color: #8B4513; 
+  }
+  
+
+  .button {
+    background-color: #166016; 
+    color: white; 
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .link {
+    color: #166016;
+    font-family: "Helvetica Neue", sans-serif; 
+  }

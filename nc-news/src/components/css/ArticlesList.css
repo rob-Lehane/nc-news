@@ -7,12 +7,18 @@
 
 .articles_list{
     list-style-type: none;
+    padding: 0;
+    text-align: center
 }
 
 .topic_filter {
     list-style-type: none;
+    padding: 0;
+    text-align: center
 }
 
 .sort_by_filter{
     list-style-type: none;
+    padding: 0;
+    text-align: center
 }

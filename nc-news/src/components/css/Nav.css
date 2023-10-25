@@ -5,5 +5,12 @@
     justify-content: space-around;
     border: 3px rgb(9, 116, 3) solid;
     padding: 0.5rem;
-    color: rgb(9, 116, 3)
+    color: rgb(9, 116, 3);
+    background-color: #166016;
+    color: #f5f5dc;
+}
+
+.nav_link {
+    color: #f5f5dc;
+    font-family: "Helvetica Neue", sans-serif; 
 }
