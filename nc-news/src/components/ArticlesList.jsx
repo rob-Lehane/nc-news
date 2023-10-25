@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { getArticles, getTopics } from '../utils/api'
 import ArticlesListCard from './ArticlesListCard'
+import Errors from './Errors.jsx'
 import './css/ArticlesList.css'
 
 function ArticlesList (topic, sort_by) {
     const [articles, setArticles] = useState([])
     const [topics, setTopics] = useState([])
     const [order, setOrder] = useState('asc')
+    const [error, setError] = useState(null)
     const location = useLocation();
     const navigate = useNavigate();
     let currentTopic = ""
@@ -34,6 +36,8 @@ useEffect(()=> {
     getArticles({topic}, {sort_by})
     .then((articles) => {
         setArticles(articles)
+    }).catch((err)=> {
+        setError( {err} )
     })
 }, [topic, sort_by])
 
@@ -53,6 +57,10 @@ function getTopicValue(){
     }
     else return false
 }
+
+if(error){
+    return <Errors message={error}/>
+  }
 
     return (
         <>
@@ -88,6 +96,18 @@ function getTopicValue(){
             <div className = 'scrolling_articles_list'>
                 <ul className = 'articles_list'>
                 {articles.map((article) => {
+                    const newDateInput = new Date(article.created_at)
+                    const dateOptions = {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                        hour12: true,
+                        timeZoneName: "short",
+                      }
+                      
                     return (
                         <>
                             <li key = {article.article_id}>
@@ -96,7 +116,7 @@ function getTopicValue(){
                         title = {article.title}
                         topic = {article.topic}
                         author = {article.author}
-                        date = {article.created_at}
+                        date = {newDateInput.toLocaleString(undefined, dateOptions)}
                         image = {article.article_img_url}
                         comment_count = {article.comment_count}
                         votes = {article.votes}

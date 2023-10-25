@@ -9,6 +9,7 @@ function AddComment(id){
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(comment.trim())
 
         if (comment.trim() === '') {
             setError('Comment cannot be blank!'); 
@@ -50,8 +51,8 @@ function AddComment(id){
             <button 
             type="reset" 
             onClick={handleReset}>Reset</button>
-            {error && <p className="error-message">{error}</p>}
-            {confirmation && <p className="confirmation-message">{confirmation}</p>}
+            <p hidden={!error}>{error}</p>
+            <p className="confirmation-message" hidden={!confirmation}>{confirmation}</p>
         </form>
         </>
     )
