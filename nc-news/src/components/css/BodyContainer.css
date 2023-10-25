@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Work+Sans:wght@700&display=swap');
+
 body {
     background-color: #f5f5dc; 
-    font-family: "Helvetica Neue", sans-serif; 
+    font-family: 'Merriweather', serif;
     margin: 0;
     padding: 0;
   }
@@ -11,6 +13,7 @@ body {
   
   h1, h2, h3 {
     color: #166016; 
+    font-family: 'Work Sans', sans-serif;
   }
   
 
@@ -29,5 +32,5 @@ body {
 
   .link {
     color: #166016;
-    font-family: "Helvetica Neue", sans-serif; 
+    font-family: 'Merriweather', serif;
   }
