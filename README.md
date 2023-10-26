@@ -1,8 +1,13 @@
-# React + Vite
+# NC News - Front End React App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+NC News is a news demo, built in React, in order to demonstrate skills learnt during the Northcoders Software Developer bootcamp.
 
-Currently, two official plugins are available:
+This application interacts with the backend NC News API that was created earlier in the course. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Information on this API can be found here: https://github.com/rob-Lehane/nc-news-rl
+
+A hosted version of this API can be accessed at: https://nc-news-repo.onrender.com
+
+# Using NC News
+
+A hosted version of this app can be accessed at: https://nc-news-rl.netlify.app/
