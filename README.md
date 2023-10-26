@@ -1,8 +1,8 @@
-# NC News - Front End React App
+# React + Vite
 
-NC News is a news demo, built in React, in order to demonstrate skills learnt during the Northcoders Software Developer bootcamp.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-This application interacts with the backend NC News API that was created earlier in the course. 
+Currently, two official plugins are available:
 
 Information on this API can be found here: https://github.com/rob-Lehane/nc-news-rl
 
