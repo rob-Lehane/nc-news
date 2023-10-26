@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { getArticles, getTopics } from '../utils/api'
+import ReactPaginate from 'react-paginate'
+import SyncLoader from "react-spinners/SyncLoader"
 import ArticlesListCard from './ArticlesListCard'
 import Errors from './Errors.jsx'
 import './css/ArticlesList.css'
@@ -10,10 +12,24 @@ function ArticlesList (topic, sort_by) {
     const [topics, setTopics] = useState([])
     const [order, setOrder] = useState('asc')
     const [error, setError] = useState(null)
+    const [articleLoading, setArticleLoading] = useState(false)
+    const [topicLoading, setTopicLoading] = useState(false)
+    const [currentPage, setCurrentPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
     const location = useLocation();
     const navigate = useNavigate();
     let currentTopic = ""
     let buttonEnabled = true
+
+    const itemsPerPage = 5;
+    const startIndex = currentPage * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const subset = articles.slice(startIndex, endIndex);
+    const handlePageChange = (selectedPage) => {
+            setCurrentPage(selectedPage.selected);
+        };
+
+
 
     if (!(location.search.includes('sort_by') || location.search.includes('order'))) {
         buttonEnabled = false;
@@ -33,20 +49,29 @@ function ArticlesList (topic, sort_by) {
     }
 
 useEffect(()=> {
+    setArticleLoading(true);
     getArticles({topic}, {sort_by})
     .then((articles) => {
+        setArticleLoading(false);
         setArticles(articles)
+        setTotalPages(Math.ceil(articles.length / itemsPerPage));
     }).catch((err)=> {
+        setArticleLoading(false)
         setError( {err} )
     })
 }, [topic, sort_by])
 
 useEffect(()=> {
+    setTopicLoading(true);
     getTopics()
     .then((topics)=> {
+        setTopicLoading(false)
         setTopics(topics)
+    }).catch((err)=> {
+        setTopicLoading(false)
+        setError( {err} )
     })
-})
+}, [])
 
 function getTopicValue(){
     if (location.search.includes('?topic=')){
@@ -58,18 +83,26 @@ function getTopicValue(){
     else return false
 }
 
-if(error){
-    return <Errors message={error}/>
-  }
 
     return (
         <>
+            <div className = "error" hidden={!error}>
+            <Errors message={error}/>
+             </div>
+
+
             <h2>Articles</h2>
             <ul className = 'topic_filter'>
                 Filter by topic:
+                <SyncLoader
+            loading={topicLoading}
+            color="#9fd3c7"
+            speedMultiplier={0.6}
+            />
                 {topics.map((topic) => {
+                    const capitalisedSlug = topic.slug.charAt(0).toUpperCase() + topic.slug.slice(1)
                     return (
-                        <li><Link to = {`/articles?topic=${topic.slug}`} className="link"> {topic.slug} </Link></li>
+                        <li><Link to = {`/articles?topic=${topic.slug}`} className="link"> { capitalisedSlug } </Link></li>
                     )
                 })}
             </ul>
@@ -93,9 +126,13 @@ if(error){
                 onClick = {toggleOrder}
                 hidden = {buttonEnabled === false}>order: {order === 'asc' ? 'desc' : 'asc'}ending</button>
             </ul>
-            <div className = 'scrolling_articles_list'>
+            <SyncLoader
+            loading={articleLoading}
+            color="#9fd3c7"
+            speedMultiplier={0.6}
+            />
                 <ul className = 'articles_list'>
-                {articles.map((article) => {
+                {subset.map((article) => {
                     const newDateInput = new Date(article.created_at)
                     const dateOptions = {
                         year: "numeric",
@@ -126,7 +163,13 @@ if(error){
                     )
                 })}
                 </ul>
-            </div>
+            <ReactPaginate
+        pageCount={totalPages}
+        onPageChange={handlePageChange}
+        forcePage={currentPage}
+        containerClassName={"pagination-container"}
+        activeClassName={"active-page"}
+    />
         </>
     )
 }

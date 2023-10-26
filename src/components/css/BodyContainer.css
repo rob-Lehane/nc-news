@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Work+Sans:wght@700&display=swap');
 
 body {
-    background-color: #f5f5dc; 
+    background-color: #ececec; 
     font-family: 'Merriweather', serif;
     margin: 0;
     padding: 0;
@@ -12,25 +12,25 @@ body {
   }
   
   h1, h2, h3 {
-    color: #166016; 
+    color: #385170; 
     font-family: 'Work Sans', sans-serif;
   }
   
 
   p {
-    color: #8B4513; 
+    color: #142d4c; 
   }
   
 
   .button {
-    background-color: #166016; 
-    color: white; 
+    background-color: #9fd3c7; 
+    color: 142d4c; 
     padding: 10px 20px;
     border: none;
     cursor: pointer;
   }
 
   .link {
-    color: #166016;
+    color: #385170;
     font-family: 'Merriweather', serif;
   }

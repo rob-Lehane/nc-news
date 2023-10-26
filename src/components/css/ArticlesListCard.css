@@ -1,5 +1,7 @@
 .ArticlesListCard {
-    border: 5px rgb(0, 92, 0);
+    border: 2px solid #385170;
+    border-radius: 15px;
+    border-color: #385170;
     width: auto;
     display: grid;
     grid-template-columns: 3fr, 1fr;
@@ -26,21 +28,22 @@
     grid-row-start: 0;
     grid-row-end: 1;
     font-size: 1.5rem;
-    color: #166016;
+    color: #385170;
 }
 
 
 .topic {
-    border: 3px solid #166016;
-    color: #166016;
+    border: 3px solid #385170;
+    color: #ececec;
+    background-color: #385170;
     font-weight: bold;
-    border-radius: 4px;
+    border-radius: 12px;
     height: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
     width: 5rem;
     text-align: center;
-    margin: 2px;
+    margin: 0.5rem;
  }
 
  .author {

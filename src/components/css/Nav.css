@@ -3,14 +3,12 @@
     list-style-type: none;
     display: flex;
     justify-content: space-around;
-    border: 3px rgb(9, 116, 3) solid;
     padding: 0.5rem;
-    color: rgb(9, 116, 3);
-    background-color: #166016;
-    color: #f5f5dc;
+    background-color: #385170;
+    color: #ececec;
 }
 
 .nav_link {
-    color: #f5f5dc;
+    color: #ececec;
     font-family: 'Work Sans', sans-serif;
 }

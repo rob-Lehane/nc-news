@@ -2,14 +2,18 @@ import './css/CommentsList.css'
 import { useState, useEffect } from 'react'
 import { getComments } from '../utils/api'
 import CommentsCard from './CommentsCard'
+import Errors from './Errors.jsx'
 
 function CommentsList(id) {
     const [comments, setComments] = useState([])
+    const [error, setError] = useState(null)
 
 useEffect(()=> {
     getComments(id)
     .then((comments) => {
         setComments(comments)
+    }).catch((err)=> {
+        setError( {err} )
     })
 }, [id])
 
@@ -17,6 +21,9 @@ useEffect(()=> {
 
 return (
     <>
+    <div className = "error" hidden={!error}>
+        <Errors message={error}/>
+    </div>
         <h2>Comments</h2>
         <div className = 'scrolling_comments_list'>
             <ul className = 'comments_list'>

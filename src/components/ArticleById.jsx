@@ -1,10 +1,13 @@
 import { useParams } from 'react-router-dom';
 import { getArticleById, voteOnArticle } from '../utils/api';
 import { useState, useEffect } from 'react'
+import SyncLoader from "react-spinners/SyncLoader";
 import './css/ArticleById.css'
 import CommentsList  from './CommentsList'
 import AddComment from './AddComment'
 import Errors from './Errors.jsx'
+
+
 
 function ArticleById() {
     const [article, setArticle] = useState([])
@@ -13,6 +16,7 @@ function ArticleById() {
     const [error, setError] = useState(null)
     const [voteError, setVoteError] = useState(null)
     const [showComments, setShowComments] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     const updateVotes = (value) => {
       setUserVote((currentVotes) => {
@@ -22,10 +26,13 @@ function ArticleById() {
 
 
 useEffect(()=> {
+  setLoading(true);
     getArticleById(id)
     .then((fetchedArticle) => {
+        setLoading(false)
         setArticle(fetchedArticle)
     }).catch((err)=> {
+      setLoading(false)
       setError({ err })
     }
     ) 
@@ -51,12 +58,18 @@ const dateOptions = {
                     }
 
 
-if(error){
-  return <Errors message={error}/>
-}
-
   return (
     <>
+    <div className = "error" hidden={!error}>
+        <Errors message={error}/>
+    </div>
+
+    <SyncLoader
+    loading={loading}
+  color="#9fd3c7"
+  speedMultiplier={0.6}
+  />
+
    <h2>{article.title}</h2>
    <img className = 'article_img' src={`${article.article_img_url}`}/>
    <p className = 'author'><b>Author:</b> {article.author}</p>
